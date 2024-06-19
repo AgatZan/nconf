@@ -1,0 +1,42 @@
+return {
+	"nvim-tree/nvim-tree.lua",
+	cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+	config = function()
+		local opts = require "nvchad.configs.nvimtree"
+		opts.on_attach = function(bufnr)
+			local api = require "nvim-tree.api"
+			local open = function()
+				local node = api.tree.get_node_under_cursor()
+				if node.nodes ~= nil then
+					api.node.open.edit()
+				else
+					api.node.open.edit()
+					api.tree.close()
+				end
+			end
+			local function toggle_replace()
+				local api = require "nvim-tree.api"
+				if api.tree.is_visible() then
+					api.tree.close()
+				else
+					api.node.open.replace_tree_buffer()
+				end
+			end
+			local map = function(key, func, desc)
+				vim.keymap.set("n", key, func, {
+					desc = "NvimTree: " .. desc,
+					buffer = bufnr,
+					noremap = true,
+					silent = true,
+					nowait = true,
+				})
+			end
+			api.config.mappings.default_on_attach(bufnr)
+			map("h", api.node.navigate.parent_close, "close dir")
+			map("l", open, "open")
+		end
+		dofile(vim.g.base46_cache .. "nvimtree")
+		require("nvim-tree").setup(opts)
+	end,
+}
+
