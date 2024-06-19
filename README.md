@@ -3,7 +3,7 @@
 ## File cheatsheet
 
 init.lua --> all requires, bootstraping [lazy.nvim](https://github.com/folke/lazy.nvim) plug manager  
-  or
+
 lua/  
 &emsp;option.lua --> all nvim options  
 &emsp;autocmd.lua --> autocmd  
