@@ -16,6 +16,7 @@ return {
 				api.tree.open({ current_window = true })
 			end
 		end, { desc = "Nvim-Tree: open" })
+
 		vim.keymap.set("n", "<leader>ne", function()
 			local api = require("nvim-tree.api")
 			if api.tree.is_visible() then
@@ -24,6 +25,10 @@ return {
 			api.tree.open({ current_window = true, path = NOTE_DIR })
 		end, { desc = "Note: [N]ote [E]xplorer" })
 		require("nvim-tree").setup({
+			filters = {
+				git_ignored = false,
+				-- git_clean = true,
+			},
 			on_attach = function(bufnr)
 				local function opts(desc)
 					return { desc = "Nvim-Tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
@@ -31,7 +36,7 @@ return {
 				local api = require("nvim-tree.api")
 				-- api.config.mappings.default_on_attach(bufnr)
 				vim.keymap.set("n", "g?", api.tree.toggle_help, opts("Help"))
-
+				vim.keymap.set("n", "I", api.tree.toggle_gitignore_filter, opts("Toggle Filter: Git Ignore"))
 				vim.keymap.set("n", "<Up>", api.tree.change_root_to_parent, opts("Move to Parent"))
 				vim.keymap.set("n", "<Down>", api.tree.change_root_to_node, opts("Move to Select"))
 				vim.keymap.set("n", "<CR>", api.node.open.replace_tree_buffer, opts("Focus to file"))
