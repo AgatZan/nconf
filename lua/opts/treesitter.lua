@@ -1,5 +1,6 @@
 local options = {
-	ensure_installed = { "lua", "vim", "vimdoc" },
+	ensure_installed = { "lua", "vim", "vimdoc", "javascript" },
+	ignore_install = { "org" },
 
 	highlight = {
 		enable = true,
@@ -54,4 +55,3 @@ local options = {
 }
 
 return options
-

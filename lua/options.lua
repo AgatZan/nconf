@@ -3,6 +3,7 @@ local o = vim.o
 local g = vim.g
 
 local tabwidth = 4
+g.have_nerd_font = true
 o.smartindent = true
 o.breakindent = true
 -------------------------------------- globals -----------------------------------------
@@ -11,7 +12,10 @@ g.toggle_theme_icon = "   "
 o.laststatus = 3
 o.showmode = false
 
-o.clipboard = "unnamedplus"
+-- :h shellslash + https://github.com/nvim-orgmode/orgmode/issues/281#issuecomment-1120200775
+-- o.spellslash = true
+
+--[[ o.clipboard = "unnamedplus" ]]
 o.cursorline = true
 --o.cursorlineopt = "number"
 
@@ -36,7 +40,7 @@ o.ruler = false
 o.scrolloff = 4
 
 -- disable nvim intro
-opt.shortmess:append "sI"
+opt.shortmess:append("sI")
 
 o.signcolumn = "yes"
 o.splitbelow = true
@@ -52,16 +56,18 @@ o.updatetime = 250
 
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
-opt.whichwrap:append "<>[]hl"
+opt.whichwrap:append("<>[]hl")
 opt.list = true
-opt.listchars = { eol = "↲", tab = "▸ ", trail = "·" }
+opt.listchars = { eol = "↲", tab = "▸ ", trail = "·", lead = "·" }
 -- disable some default providers
 vim.g["loaded_node_provider"] = 0
 vim.g["loaded_python3_provider"] = 0
 vim.g["loaded_perl_provider"] = 0
 vim.g["loaded_ruby_provider"] = 0
 
--- add yours here!
+-- Spell
+o.spell = true
+o.spl = "en,ru"
 o.keymap = "russian-jcukenwin"
 o.langmap =
 	"ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
@@ -69,5 +75,3 @@ o.iminsert = 0
 o.imsearch = 0
 
 o.filetype = "on"
-
-

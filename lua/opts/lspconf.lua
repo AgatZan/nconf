@@ -2,12 +2,7 @@
 local M = {}
 -- local nv_conf = require "nvchad.configs.lspconfig"
 
-
 lspconf = require("lspconfig")
-
-
-
-
 
 M.servers = {
 	lua_ls = {
@@ -18,17 +13,17 @@ M.servers = {
 				},
 				workspace = {
 					library = {
-						[vim.fn.expand "$VIMRUNTIME/lua"] = true,
-						[vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
-						[vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types"] = true,
-						[vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy"] = true,
+						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+						[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+						[vim.fn.stdpath("data") .. "/lazy/ui/nvchad_types"] = true,
+						[vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy"] = true,
 					},
 					maxPreload = 100000,
 					preloadFileSize = 10000,
 				},
 			},
-		},	
-	}
+		},
+	},
 }
 M.mapping = {
 	n = {
@@ -68,7 +63,7 @@ M.mapping = {
 		},
 		["<leader>lr"] = {
 			func = function()
-				require "nvchad.lsp.renamer"()
+				require("nvchad.lsp.renamer")()
 			end,
 			opts = { desc = "Lsp: [r]ename" },
 		},
@@ -76,7 +71,7 @@ M.mapping = {
 			func = vim.lsp.buf.code_action,
 			opts = { desc = "Lsp: Code action" },
 		},
-		
+
 		["gu"] = {
 			func = require("telescope.builtin").lsp_references,
 			opts = { desc = "LSP: [g]oto [u]eses" },
@@ -105,41 +100,36 @@ M.on_attach = function(client, bufnr)
 		end
 	end
 	-- setup signature popup
-	if
-		require("nvconfig").ui.lsp.signature
-		and client.server_capabilities.signatureHelpProvider
-	then
+	if require("nvconfig").ui.lsp.signature and client.server_capabilities.signatureHelpProvider then
 		require("nvchad.lsp.signature").setup(client, bufnr)
 	end
 end
 -- disable semanticTokens
 M.on_init = function(client, _)
-  if client.supports_method "textDocument/semanticTokens" then
-    client.server_capabilities.semanticTokensProvider = nil
-  end
+	if client.supports_method("textDocument/semanticTokens") then
+		client.server_capabilities.semanticTokensProvider = nil
+	end
 end
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 
 M.capabilities.textDocument.completion.completionItem = {
-  documentationFormat = { "markdown", "plaintext" },
-  snippetSupport = true,
-  preselectSupport = true,
-  insertReplaceSupport = true,
-  labelDetailsSupport = true,
-  deprecatedSupport = true,
-  commitCharactersSupport = true,
-  tagSupport = { valueSet = { 1 } },
-  resolveSupport = {
-    properties = {
-      "documentation",
-      "detail",
-      "additionalTextEdits",
-    },
-  },
+	documentationFormat = { "markdown", "plaintext" },
+	snippetSupport = true,
+	preselectSupport = true,
+	insertReplaceSupport = true,
+	labelDetailsSupport = true,
+	deprecatedSupport = true,
+	commitCharactersSupport = true,
+	tagSupport = { valueSet = { 1 } },
+	resolveSupport = {
+		properties = {
+			"documentation",
+			"detail",
+			"additionalTextEdits",
+		},
+	},
 }
-
-
 
 M.setup = function(servers)
 	servers = servers or M.servers
@@ -153,4 +143,3 @@ M.setup = function(servers)
 end
 
 return M
-

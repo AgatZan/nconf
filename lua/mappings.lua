@@ -1,17 +1,17 @@
--- require "nvchad.mappings"
 local map = vim.keymap.set
 local comment = "c"
+vim.g.mapleader = " "
+map("n", "<leader>e", ":so<cr>", { desc = "[e]xecute" })
+map({ "n", "v" }, "<leader>y", '"+y', { desc = "[Y]ank to clipboard" })
+map({ "n", "v" }, "<leader>Y", '"+Y', { desc = "[Y]ank $ to clipboard" })
+map({ "n", "v" }, "<leader>d", '"_d', { desc = "[D]elete to nothing" })
+map({ "n", "v" }, "<leader>x", '"_x', { desc = "[D]elete char to nothing" })
+map({ "n", "v" }, "<leader>p", '"+p', { desc = "[P]aste from clipboard" })
+map({ "n", "v" }, "<leader>P", '"+P', { desc = "[P]aste from clipboard" })
 
--- map(
--- 	"n",
--- 	"<leader>ht",
--- 	"<cmd>NvCheatsheet<CR>",
--- 	{ desc = "Toggle NvCheatsheet" }
--- )
-
-vim.keymap.set(
+map(
 	"n",
-	"gX",
+	"gx",
 	":!start <cfile><CR>",
 	-- function()
 	-- local file = vim.fn.expand "<cfile>"
@@ -23,6 +23,9 @@ vim.keymap.set(
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "File Copy whole" })
 map("n", "<Esc>", "<cmd>noh<CR>", { desc = "General Clear highlights" })
 map("n", "<C-j>", "i<CR><ESC>")
+
+map("n", "<esc>", ":noh<CR>", { noremap = true, silent = true })
+
 -- ================ MOVING [I] ==============================
 map("i", "<C-b>", "<ESC>^i", { desc = "Move Beginning of line" })
 map("i", "<C-e>", "<End>", { desc = "Move End of line" })
@@ -33,46 +36,11 @@ map("i", "<C-l>", "<Del>", { desc = "Delete after" })
 -- map("i", "<m-k>", "<Up>", { desc = "move up [i]" })
 -- map("i", "<m-j>", "<Down>", { desc = "move down [i]" })
 
-
 -- =================== BUFFER ==============================
 
 map("n", "<leader>b", "<cmd>enew<CR>", { desc = "Buffer New" })
 
-map("n", "<tab>", function()
-	require("nvchad.tabufline").next()
-end, { desc = "Buffer Goto next" })
-
-map("n", "<S-tab>", function()
-	require("nvchad.tabufline").prev()
-end, { desc = "Buffer Goto prev" })
-
-map("n", "<leader>x", function()
-	require("nvchad.tabufline").close_buffer()
-end, { desc = "Buffer Close" })
-
 -- =================== TERMINAL =======================
-
--- new terminals
-map("n", "<leader>th", function()
-	require("nvchad.term").new { pos = "sp", size = 0.3 }
-end, { desc = "Terminal: [t]erm [h]orizontal (new)" })
-
-map("n", "<leader>tv", function()
-	require("nvchad.term").new { pos = "vsp", size = 0.3 }
-end, { desc = "Terminal: [t]erm [v]ertical (new)" })
-
--- toggleable
-map({ "n", "t" }, "<A-v>", function()
-	require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm", size = 0.3 }
-end, { desc = "Terminal: [v]ertical (toggle)" })
-
-map({ "n", "t" }, "<A-h>", function()
-	require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm", size = 0.3 }
-end, { desc = "Terminal: [h]orizontal (toggle)" })
-
-map({ "n", "t" }, "<A-f>", function()
-	require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
-end, { desc = "Terminal:  [f]loat" })
 
 map("t", "<ESC>", function()
 	local win = vim.api.nvim_get_current_win()
@@ -108,30 +76,10 @@ map("v", "<m-S-j>", ":'<,'>co-1<CR>gv", { desc = "copy line up [v]" })
 -- 	"<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
 -- 	{ desc = "Comment Toggle" }
 -- )
-map(
-	"n",
-	"<leader>lf",
-	vim.diagnostic.open_float,
-	{ desc = "Lsp: [f]loating diagnostics" }
-)
-map(
-	"n",
-	"<leader>q",
-	vim.diagnostic.setloclist,
-	{ desc = "Lsp: diagnostic loclist" }
-)
-map(
-	"n",
-	"[d",
-	vim.diagnostic.goto_prev,
-	{ desc = "Goto prev([) [D]iagnostic message" }
-)
-map(
-	"n",
-	"]d",
-	vim.diagnostic.goto_next,
-	{ desc = "Goto next(]) [D]iagnostic message" }
-)
+map("n", "<leader>lf", vim.diagnostic.open_float, { desc = "Lsp: [f]loating diagnostics" })
+map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Lsp: diagnostic loclist" })
+map("n", "[d", vim.diagnostic.goto_prev, { desc = "Goto prev([) [D]iagnostic message" })
+map("n", "]d", vim.diagnostic.goto_next, { desc = "Goto next(]) [D]iagnostic message" })
 
 -- ============================ FILE_BROWSER ===========================================
 -- map(
@@ -149,9 +97,8 @@ map(
 
 -- ============================ TELESCOPE ===============================================
 
-
 map("n", "<leader>lf", function()
-	require("conform").format { lsp_fallback = true }
+	require("conform").format({ lsp_fallback = true })
 end, { desc = "[l]sp [f]ormat" })
 
 -- ===================== FLOAT CMD ==========================
@@ -251,4 +198,3 @@ end, { desc = "[l]sp [f]ormat" })
 -- 	vim.bo.omnifunc = "v:lua._fine_cmdline_omnifunc"
 -- end)
 --
-

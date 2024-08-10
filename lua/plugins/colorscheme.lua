@@ -1,9 +1,82 @@
 return {
-	"bluz71/vim-moonfly-colors", 
-	name = "moonfly", 
-	lazy = false, 
-	priority = 1000,
+	"EdenEast/nightfox.nvim",
 	config = function()
-		vim.cmd [[colorscheme moonfly]]
+		vim.cmd.colorscheme("carbonfox")
 	end,
 }
+
+--return {
+--	"projekt0n/github-nvim-theme",
+--	lazy = false, -- make sure we load this during startup if it is your main colorscheme
+--	priority = 1000, -- make sure to load this before all the other start plugins
+--	config = function()
+--		require("github-theme").setup({
+--			-- ...
+--		})
+--
+--		vim.cmd("colorscheme github_dark_hight_contrast")
+--	end,
+--}
+
+--return {
+--	"RRethy/base16-nvim",
+--	config = function()
+--		--		vim.cmd.colorscheme("base16-black-metal-venom")
+--		require("base16-colorscheme").setup({
+--			base00 = "#000000",
+--			base01 = "#121212",
+--			base02 = "#222222",
+--			base03 = "#333333",
+--			base04 = "#999999",
+--			base05 = "#c1c1c1",
+--			base06 = "#999999",
+--			base07 = "#c1c1c1",
+--			base08 = "#5f8787",
+--			base09 = "#aaaaaa",
+--			base0A = "#79241f",
+--			base0B = "#f8f7f2",
+--			base0C = "#aaaaaa",
+--			base0D = "#888888",
+--			base0E = "#999999",
+--			base0F = "#444444",
+--		})
+--	end,
+--}
+--return {
+--	"Abstract-IDE/Abstract-cs",
+--	lazy = false,
+--	priority = 1000,
+--	config = function()
+--		vim.cmd.colorscheme("abscs")
+--	end,
+--}
+--return {
+--	"gmr458/cold.nvim",
+--	lazy = false,
+--	priority = 1000,
+--	build = ":ColdCompile",
+--	config = function()
+--		require("cold").setup({
+--			transparent_background = false,
+--		})
+--		vim.cmd.colorscheme("cold")
+--	end,
+--}
+--  return {
+--  	"bluz71/vim-moonfly-colors",
+--  	name = "moonfly",
+--  	lazy = false,
+--  	priority = 1000,
+--  	config = function()
+--  		vim.cmd [[colorscheme moonfly]]
+--  	end,
+--  }
+-- return {
+-- 	"rebelot/kanagawa.nvim",
+-- 	lazy = false,
+-- 	priority = 1000,
+-- 	config = function()
+-- 		vim.cmd.colorscheme("kanagawa-dragon")
+-- 		-- vim.cmd("colorscheme kanagawa-wave")
+-- 	end,
+-- }

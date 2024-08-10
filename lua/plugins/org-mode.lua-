@@ -1,0 +1,42 @@
+return {
+	{
+		"nvim-orgmode/orgmode",
+		event = "VeryLazy",
+		ft = { "org" },
+		config = function()
+			-- Setup orgmode
+			require("orgmode").setup({
+				org_agenda_files = NOTE_DIR .. "**/*",
+				org_default_notes_file = NOTE_DIR .. "refile.org",
+				org_todo_keywords = { "TODO", "WAITING", "|", "DONE", "DELEGATED" },
+				org_todo_keyword_faces = {
+					WAITING = ":foreground blue :weight bold",
+					-- DELEGATED = ':background #FFFFFF :slant italic :underline on',
+					TODO = ":background #000000 :foreground red", -- overrides builtin color for `TODO` keyword
+				},
+				mappings = {
+					--				org_return_uses_meta_return = true,
+				},
+			})
+		end,
+	},
+	{
+		"chipsenkbeil/org-roam.nvim",
+		config = function()
+			require("org-roam").setup({
+				directory = NOTE_DIR,
+				extensions = {
+					dailies = {
+						templates = {
+							d = {
+								description = "default",
+								template = "%?",
+								target = "%<%Y-%m-%d>.org",
+							},
+						},
+					},
+				},
+			})
+		end,
+	},
+}

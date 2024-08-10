@@ -1,0 +1,50 @@
+return {
+	"liweis6991/gitsigns.nvim",
+	opts = {
+		on_attach = function(bufnr)
+			local gitsigns = require("gitsigns")
+			local function map(mode, l, r, desc)
+				vim.keymap.set(mode, l, r, { buffer = bufnr, desc = "Git: " .. desc })
+			end
+			map("n", "]c", function()
+				if vim.wo.diff then
+					vim.cmd.normal({ "]c", bang = true })
+				else
+					gitsigns.nav_hunk("next")
+				end
+			end, "next hunk")
+
+			map("n", "[c", function()
+				if vim.wo.diff then
+					vim.cmd.normal({ "[c", bang = true })
+				else
+					gitsigns.nav_hunk("prev")
+				end
+			end, "prev hunk")
+
+			map("n", "<leader>hs", gitsigns.stage_hunk, "[H]unk [S]tage")
+			map("n", "<leader>hr", gitsigns.reset_hunk, "[H]unk [R]eset")
+			map("v", "<leader>hs", function()
+				gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+			end, "[H]unk [S]tage")
+			map("v", "<leader>hr", function()
+				gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+			end, "[H]unk [R]eset")
+			map("n", "<leader>hS", gitsigns.stage_buffer, "[H]unk [S]tage All")
+			map("n", "<leader>hu", gitsigns.undo_stage_hunk, "[H]unk [U]ndo Stage")
+			map("n", "<leader>hR", gitsigns.reset_buffer, "[H]unk [R]eset All")
+			map("n", "<leader>hp", gitsigns.preview_hunk, "[H]unk [P]rewie")
+			map("n", "<leader>hb", function()
+				gitsigns.blame_line({ full = true })
+			end, "[H]unk [B]lame")
+			map("n", "<leader>htb", gitsigns.toggle_current_line_blame, "[H]unk [T]oggle [B]lame current line")
+			map("n", "<leader>hd", gitsigns.diffthis, "[H]unk [D]iff")
+			map("n", "<leader>hD", function()
+				gitsigns.diffthis("~")
+			end, "[H]unk [D]iff all")
+			map("n", "<leader>td", gitsigns.toggle_deleted, "[H]unk [T]oggle [D]eleted")
+			-- Text object
+			map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+		end,
+	},
+}
