@@ -1,5 +1,14 @@
 # my config
 
+## Instalation
+Call in nvim `:lua print(vim.fn.stdpath('config'))` and get nvim config path
+
+Clone to config dir repo
+```
+git clone https://github.com/AgatZan/nconf.git #path to config
+```
+Have a nice day!!! ヽ(・∀・)ﾉ
+
 ## File cheatsheet
 
 init.lua --> all requires, init some globals(maybe move to a separate one), bootstrapping [lazy.nvim](https://github.com/folke/lazy.nvim) plug manager  
