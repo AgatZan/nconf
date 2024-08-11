@@ -3,17 +3,68 @@ return {
 	event = "InsertEnter",
 	dependencies = {
 		{
-			"L3MON4D3/LuaSnip",
-			--build = "make install_jsregexp",
+			-- "L3MON4D3/LuaSnip",
+			-- --build = "make install_jsregexp",
+			-- dependencies = {
+			-- 	{
+			-- 		"rafamadriz/friendly-snippets",
+			-- 		config = function()
+			-- 			require("luasnip.loaders.from_vscode").lazy_load()
+			-- 			require("luasnip.loaders.from_vscode").load({
+			-- 				path = { "./snippets" },
+			-- 			})
+			-- 		end,
+			-- 	},
+			-- },
+			"garymjr/nvim-snippets",
 			dependencies = {
+				"rafamadriz/friendly-snippets",
+			},
+			opts = {
+				friendly_snippets = true,
+				snippetDir = { vim.fn.stdpath("config") .. "/snippets" },
+			},
+			keys = {
 				{
-					"rafamadriz/friendly-snippets",
-					config = function()
-						require("luasnip.loaders.from_vscode").lazy_load()
-						require("luasnip.loaders.from_vscode").load({
-							path = { "./snippets" },
-						})
+					"<C-l>",
+					function()
+						if vim.snippet.active({ direction = 1 }) then
+							vim.schedule(function()
+								vim.snippet.jump(1)
+							end)
+							return
+						end
+						return "<C-l>"
 					end,
+					expr = true,
+					silent = true,
+					mode = "i",
+				},
+				{
+					"<C-l>",
+					function()
+						vim.schedule(function()
+							vim.snippet.jump(1)
+						end)
+					end,
+					expr = true,
+					silent = true,
+					mode = "s",
+				},
+				{
+					"<C-h>",
+					function()
+						if vim.snippet.active({ direction = -1 }) then
+							vim.schedule(function()
+								vim.snippet.jump(-1)
+							end)
+							return
+						end
+						return "<C-h>"
+					end,
+					expr = true,
+					silent = true,
+					mode = { "i", "s" },
 				},
 			},
 		},
@@ -37,22 +88,24 @@ return {
 				},
 			},
 			dependencies = { "nvim-telescope/telescope.nvim" },
-			opts = {},
+			opts = {
+				snippetDir = vim.fn.stdpath("config") .. "/snippets",
+			},
 		},
-		"saadparwaiz1/cmp_luasnip",
+		-- "saadparwaiz1/cmp_luasnip",
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-path",
 	},
 	config = function()
 		local cmp = require("cmp")
-		local luasnip = require("luasnip")
-		luasnip.config.setup({})
+		-- local luasnip = require("luasnip")
+		-- luasnip.config.setup({})
 
 		cmp.setup({
 			snippet = {
 				expand = function(args)
-					luasnip.lsp_expand(args.body)
-					-- vim.snippet.expand(args.body)
+					-- luasnip.lsp_expand(args.body)
+					vim.snippet.expand(args.body)
 				end,
 			},
 			completion = { completeopt = "menu,menuone,noinsert" },
@@ -90,21 +143,22 @@ return {
 				--
 				-- <c-l> will move you to the right of each of the expansion locations.
 				-- <c-h> is similar, except moving you backwards.
-				["<C-l>"] = cmp.mapping(function()
-					if luasnip.expand_or_locally_jumpable() then
-						luasnip.expand_or_jump()
-					end
-				end, { "i", "s" }),
-				["<C-h>"] = cmp.mapping(function()
-					if luasnip.locally_jumpable(-1) then
-						luasnip.jump(-1)
-					end
-				end, { "i", "s" }),
+				-- ["<C-l>"] = cmp.mapping(function()
+				-- 	if luasnip.expand_or_locally_jumpable() then
+				-- 		luasnip.expand_or_jump()
+				-- 	end
+				-- end, { "i", "s" }),
+				-- ["<C-h>"] = cmp.mapping(function()
+				-- 	if luasnip.locally_jumpable(-1) then
+				-- 		luasnip.jump(-1)
+				-- 	end
+				-- end, { "i", "s" }),
 			}),
 			sources = {
 				{ name = "lazydev" },
 				{ name = "nvim_lsp" },
-				{ name = "luasnip" },
+				{ name = "snippets" },
+				-- { name = "luasnip" },
 				{ name = "path" },
 			},
 		})

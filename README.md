@@ -11,10 +11,12 @@ lua/
         *
     plugin/ --> lazy.nvim plugin list
         colorscheme.lua --> current collorscheme
+        file-manager.lua --> current file manager
+        completion.lua --> all about completion ( also snippets )
         *
     plugin.bak/ --> You shouldn't have seen it.
         *
-snippets/ --> where ur dreams of snippet come true ( someday it won't just be a dream )
+snippets/ --> where ur dreams of snippet come true ( someday it won't just be a dream and someday is now!!! ) 
     *
 syntax/ --> auto correction 4 nvim
     *

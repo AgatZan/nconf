@@ -1,1 +1,1 @@
-{"keys":{"body":"{\"<leader>${1:}\", \"<cmd>${2:}<cr>\", desc =\"${3:l}\"}","prefix":"keys"},"test":{"prefix":"test","body":"local a = \"test\""}}
+{"test":{"prefix":"test","body":"byeaaaa i say buyyaa"},"Say hello to the world":{"prefix":["hw","hello"],"body":"Hello, ${1:world}!$0"}}
