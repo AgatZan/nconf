@@ -12,7 +12,10 @@ return {
 			"folke/lazydev.nvim",
 			ft = "lua",
 			opts = {
-				library = { path = "luvit-meta/library", words = { "vim%.uv" } },
+				library = {
+					{ path = "luvit-meta/library", words = { "vim%.uv" } },
+					{ path = "plenary.nvim", words = { "describe", "it" } },
+				},
 			},
 		},
 		{ "Bilal2453/luvit-meta", lazy = true },

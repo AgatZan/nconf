@@ -9,6 +9,9 @@ map({ "n", "v" }, "<leader>x", '"_x', { desc = "[D]elete char to nothing" })
 map({ "n", "v" }, "<leader>p", '"+p', { desc = "[P]aste from clipboard" })
 map({ "n", "v" }, "<leader>P", '"+P', { desc = "[P]aste from clipboard" })
 
+map("n", "<leader>tf", "<Plug>PlenaryTestFile", { desc = "[T]est [F]ile" })
+map("n", "<leader>td", "<CMD>PlenaryBustedDirectory . {sequential=true}<CR>", { desc = "[T]est [D]ir" })
+
 map(
 	"n",
 	"gx",
