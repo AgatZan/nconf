@@ -10,8 +10,8 @@ end
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-NOTE_DIR = "F:\\#obsidian_handbook"
-DEV_DIR = "F:\\#utils\\nvim-plug"
+NOTE_DIR = "F:\\#obsidian_handbook\\" or "~/note/"
+DEV_DIR = "F:\\#utils\\nvim-plug\\" or "~/nvim-plug/"
 
 if not vim.uv.fs_stat(lazypath) then
 	local repo = "https://github.com/folke/lazy.nvim.git"
