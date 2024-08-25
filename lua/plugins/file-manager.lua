@@ -44,7 +44,7 @@ return {
 				vim.keymap.set("n", "a", api.fs.create, opts("Create File Or Directory"))
 				vim.keymap.set("n", "A", function()
 					local node = api.tree.get_node_under_cursor()
-					api.fs.create(node.parent[1] or node)
+					api.fs.create(node.parent or node)
 				end, opts("Create File Or Directory Parent"))
 				vim.keymap.set("n", "c", api.fs.copy.node, opts("Copy file"))
 				vim.keymap.set("n", "y", api.fs.copy.filename, opts("Copy Name"))
