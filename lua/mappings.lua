@@ -11,7 +11,17 @@ map({ "n", "v" }, "<leader>P", '"+P', { desc = "[P]aste from clipboard" })
 
 map("n", "<leader>tf", "<Plug>PlenaryTestFile", { desc = "[T]est [F]ile" })
 map("n", "<leader>td", "<CMD>PlenaryBustedDirectory . {sequential=true}<CR>", { desc = "[T]est [D]ir" })
-
+map("n", "<leader>r", function()
+	local def = vim.fn.expand("%")
+	vim.ui.input({
+		prompt = "Rename: ",
+		default = def,
+	}, function(input)
+		if input then
+			vim.uv.fs_rename(def, input)
+		end
+	end)
+end, { desc = "[R]ename current file" })
 map(
 	"n",
 	"gx",

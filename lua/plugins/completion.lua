@@ -156,7 +156,14 @@ return {
 			}),
 			sources = {
 				{ name = "lazydev" },
-				{ name = "nvim_lsp" },
+				{
+					name = "nvim_lsp",
+					-- option = {
+					-- 	markdown_oxide = {
+					-- 		keyword_pattern = [[\(\k\| \|\/\|#\)\+]],
+					-- 	},
+					-- },
+				},
 				{ name = "snippets" },
 				-- { name = "luasnip" },
 				{ name = "path" },

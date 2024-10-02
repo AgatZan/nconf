@@ -58,7 +58,7 @@ o.updatetime = 250
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append("<>[]hl")
 opt.list = true
-opt.listchars = { eol = "↲", tab = "▸ ", trail = "·", lead = "·" }
+opt.listchars = { eol = "↲", tab = "│ ", trail = "·", lead = "·" }
 -- disable some default providers
 vim.g["loaded_node_provider"] = 0
 vim.g["loaded_python3_provider"] = 0

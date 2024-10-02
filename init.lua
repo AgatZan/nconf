@@ -10,6 +10,7 @@ end
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
+vim.g.os_sep = vim.g.os_sep or vim.uv.os_uname().sysname == "Windows_NT" and "\\" or "/"
 NOTE_DIR = "F:\\#obsidian_handbook\\" or "~/note/"
 DEV_DIR = "F:\\#utils\\nvim-plug\\" or "~/nvim-plug/"
 

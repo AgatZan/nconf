@@ -14,6 +14,7 @@ return {
 			opts = {
 				library = {
 					{ path = "luvit-meta/library", words = { "vim%.uv" } },
+					{ path = "vim/_meta", words = { "vim%.api" } },
 					{ path = "plenary.nvim", words = { "describe", "it" } },
 				},
 			},
@@ -53,16 +54,9 @@ return {
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 			callback = function(event)
-				-- NOTE: Remember that Lua is a real programming language, and as such it is possible
-				-- to define small helper and utility functions so you don't have to repeat yourself.
-				--
-				-- In this case, we create a function that lets us more easily define mappings specific
-				-- for LSP related items. It sets the mode, buffer and description for us each time.
-				local map = function(keys, func, desc)
+				local function map(keys, func, desc)
 					vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-				end
-
-				-- Jump to the definition of the word under your cursor.
+				end -- Jump to the definition of the word under your cursor.
 				--  This is where a variable was first declared, or where a function is defined, etc.
 				--  To jump back, press <C-t>.
 				map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
@@ -167,7 +161,10 @@ return {
 		--  - settings (table): Override the default settings passed when initializing the server.
 		--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 		local servers = {
-			-- clangd = {},
+			clangd = {
+
+				cmd = { "clangd", "--clang-tidy" },
+			},
 			-- gopls = {},
 			-- pyright = {},
 			-- rust_analyzer = {},
@@ -179,7 +176,16 @@ return {
 			-- But for many setups, the LSP (`tsserver`) will work just fine
 			-- tsserver = {},
 			--
-
+			-- markdown_oxide = {
+			-- 	capabilities = {
+			-- 		workspace = {
+			-- 			didChangeWatchedFiles = {
+			-- 				dynamicRegistration = true,
+			-- 			},
+			-- 		},
+			-- 	},
+			-- },
+			marksman = {},
 			lua_ls = {
 				-- cmd = {...},
 				-- filetypes = { ...},
