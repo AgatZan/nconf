@@ -1,41 +1,64 @@
-local map = vim.keymap.set
+local map = vim.api.nvim_set_keymap
 local comment = "c"
 vim.g.mapleader = " "
-map("n", "<leader>e", ":so<cr>", { desc = "[e]xecute" })
-map({ "n", "v" }, "<leader>y", '"+y', { desc = "[Y]ank to clipboard" })
-map({ "n", "v" }, "<leader>Y", '"+Y', { desc = "[Y]ank $ to clipboard" })
-map({ "n", "v" }, "<leader>d", '"_d', { desc = "[D]elete to nothing" })
-map({ "n", "v" }, "<leader>x", '"_x', { desc = "[D]elete char to nothing" })
-map({ "n", "v" }, "<leader>p", '"+p', { desc = "[P]aste from clipboard" })
-map({ "n", "v" }, "<leader>P", '"+P', { desc = "[P]aste from clipboard" })
+map("n", "<leader>y", '"+y', { desc = "[Y]ank to clipboard" })
 
+map("v", "<leader>y", '"+y', { desc = "[Y]ank to clipboard" })
+map("n", "<leader>Y", '"+Y', { desc = "[Y]ank $ to clipboard" })
+map("v", "<leader>Y", '"+Y', { desc = "[Y]ank $ to clipboard" })
+map("n", "<leader>d", '"_d', { desc = "[D]elete to nothing" })
+map("v", "<leader>d", '"_d', { desc = "[D]elete to nothing" })
+map("n", "<leader>p", '"+p', { desc = "[P]aste from clipboard" })
+map("v", "<leader>p", '"+p', { desc = "[P]aste from clipboard" })
+map("n", "<leader>P", '"+P', { desc = "[P]aste from clipboard" })
+map("v", "<leader>P", '"+P', { desc = "[P]aste from clipboard" })
+
+map("i", "(", "()<Left>", { noremap = true })
+map("i", "[", "[]<Left>", { noremap = true })
+map("i", "{", "{}<Left>", { noremap = true })
+map("i", "{<cr>", "{}<Left><CR>\t<CR><Up><End>", { noremap = true })
+map("i", '"', '""<Left>', { noremap = true })
+map("i", "'", "''<Left>", { noremap = true })
+vim.api.nvim_set_keymap("i", "<BS>", "", {
+	noremap = true,
+	expr = true,
+	replace_keycodes = true,
+	callback = function()
+		local pos = vim.api.nvim_win_get_cursor(0)
+		local line = vim.api.nvim_buf_get_lines(0, pos[1] - 1, pos[1], true)[1]
+		local char = line:sub(pos[2], pos[2])
+		local rchar = line:sub(pos[2] + 1, pos[2] + 1)
+		if
+			char == "(" and rchar == ")"
+			or char == "[" and rchar == "]"
+			or char == "{" and rchar == "}"
+			or (rchar == "'" or char == '"') and rchar == char
+		then
+			return "<BS><DEL>"
+		end
+		return "<BS>"
+	end,
+})
 map("n", "<leader>tf", "<Plug>PlenaryTestFile", { desc = "[T]est [F]ile" })
 map("n", "<leader>td", "<CMD>PlenaryBustedDirectory . {sequential=true}<CR>", { desc = "[T]est [D]ir" })
-map("n", "<leader>r", function()
-	local def = vim.fn.expand("%")
-	vim.ui.input({
-		prompt = "Rename: ",
-		default = def,
-	}, function(input)
-		if input then
-			vim.uv.fs_rename(def, input)
-		end
-	end)
-end, { desc = "[R]ename current file" })
-map(
-	"n",
-	"gx",
-	":!start <cfile><CR>",
-	-- function()
-	-- local file = vim.fn.expand "<cfile>"
-	-- vim.print(file)
-	-- vim.cmd("!start " .. file)
-	-- end
-	{ desc = "Goto url", remap = false }
-)
+map("n", "<leader>r", "", {
+	desc = "[R]ename current file",
+	callback = function()
+		local def = vim.fn.expand("%")
+		vim.ui.input({
+			prompt = "Rename: ",
+			default = def,
+		}, function(input)
+			if input then
+				vim.uv.fs_rename(def, input)
+			end
+		end)
+	end,
+})
+map("n", "gx", ":!start <cfile><CR>", { desc = "Goto url", noremap = true })
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "File Copy whole" })
 map("n", "<Esc>", "<cmd>noh<CR>", { desc = "General Clear highlights" })
-map("n", "<C-j>", "i<CR><ESC>")
+-- map("n", "<C-j>", "i<CR><ESC>", {})
 
 map("n", "<esc>", ":noh<CR>", { noremap = true, silent = true })
 
@@ -43,11 +66,10 @@ map("n", "<esc>", ":noh<CR>", { noremap = true, silent = true })
 map("i", "<C-b>", "<ESC>^i", { desc = "Move Beginning of line" })
 map("i", "<C-e>", "<End>", { desc = "Move End of line" })
 map("i", "<C-l>", "<Del>", { desc = "Delete after" })
-
 -- map("i", "<m-h>", "<Left>", { desc = "move left [i]" })
 -- map("i", "<m-l>", "<Right>", { desc = "move right [i]" })
--- map("i", "<m-k>", "<Up>", { desc = "move up [i]" })
 -- map("i", "<m-j>", "<Down>", { desc = "move down [i]" })
+-- map("i", "<m-k>", "<Up>", { desc = "move up [i]" })
 
 -- =================== BUFFER ==============================
 
@@ -55,10 +77,10 @@ map("n", "<leader>b", "<cmd>enew<CR>", { desc = "Buffer New" })
 
 -- =================== TERMINAL =======================
 
-map("t", "<ESC>", function()
-	local win = vim.api.nvim_get_current_win()
-	vim.api.nvim_win_close(win, true)
-end, { desc = "Terminal: Close term in terminal mode" })
+-- map("t", "<ESC>", function()
+-- 	local win = vim.api.nvim_get_current_win()
+-- 	vim.api.nvim_win_close(win, true)
+-- end, { desc = "Terminal: Close term in terminal mode" })
 map("t", "<ESC><ESC>", "<C-\\><C-n>", { desc = "Ext terminal" })
 -- =================== WINDOW =========================
 map("n", "<C-h>", "<C-w>h", { desc = "Switch Window left" })
@@ -66,53 +88,39 @@ map("n", "<C-l>", "<C-w>l", { desc = "Switch Window right" })
 map("n", "<C-j>", "<C-w>j", { desc = "Switch Window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "Switch Window up" })
 
+map("n", "<leader>wv", "<cmd>vs<CR>", { desc = "[W]indow [V]ertical split" })
+map("n", "<leader>ws", "<cmd>sp<CR>", { desc = "[W]indow [S]plit" })
+
 -- ================ SWAP LINES ========================
 map("n", "<m-k>", ":m-2<cr>", { desc = "move line up [n]" })
 map("n", "<m-j>", ":m+<cr>", { desc = "move line down [n]" })
+
 map("n", "<m-S-k>", ":co-1<cr>", { desc = "copy line up [n]" })
 map("n", "<m-S-j>", ":co.<cr>", { desc = "copy line down [n]" })
 map("i", "<m-S-k>", "<esc>:m-2<cr>i", { desc = "move line up [i]" })
 map("i", "<m-S-j>", "<ESC>:m+<CR>i", { desc = "Move line down [i]" })
+
 map("v", "<m-k>", ":'<,'>move-2<CR>gv=gv", { desc = "move line down [v]" })
 map("v", "<m-j>", ":m '>+1<cr>gv=gv", { desc = "move line up [v]" })
+
 map("v", "<m-S-k>", ":'<,'>co+<CR>gv", { desc = "copy line down [v]" })
 map("v", "<m-S-j>", ":'<,'>co-1<CR>gv", { desc = "copy line up [v]" })
 
 -- ========================= COMMENT =============================
--- map("n", "<leader>" .. comment, function()
--- 	require("Comment.api").toggle.linewise.current()
--- end, { desc = "Comment Toggle" })
+map("n", "<leader>ld", "", { callback = vim.diagnostic.open_float, desc = "Lsp: [d]iagnostics" })
+map("n", "<leader>q", "", { callback = vim.diagnostic.setloclist, desc = "Lsp: diagnostic loclist" })
+map("n", "[d", "", { callback = vim.diagnostic.goto_prev, desc = "Goto prev([) [D]iagnostic message" })
+map("n", "]d", "", { callback = vim.diagnostic.goto_next, desc = "Goto next(]) [D]iagnostic message" })
 
--- map(
--- 	"v",
--- 	"<leader>" .. comment,
--- 	"<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
--- 	{ desc = "Comment Toggle" }
--- )
-map("n", "<leader>lf", vim.diagnostic.open_float, { desc = "Lsp: [f]loating diagnostics" })
-map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Lsp: diagnostic loclist" })
-map("n", "[d", vim.diagnostic.goto_prev, { desc = "Goto prev([) [D]iagnostic message" })
-map("n", "]d", vim.diagnostic.goto_next, { desc = "Goto next(]) [D]iagnostic message" })
-
--- ============================ FILE_BROWSER ===========================================
--- map(
--- 	"n",
--- 	"<C-n>",
--- 	"<cmd>NvimTreeToggle<CR>",
--- 	{ desc = "Nvimtree Toggle window" }
--- )
--- map(
--- 	"n",
--- 	"<leader>e",
--- 	"<cmd>NvimTreeFocus<CR>",
--- 	{ desc = "Nvimtree Focus window" }
--- )
 
 -- ============================ TELESCOPE ===============================================
 
-map("n", "<leader>lf", function()
-	require("conform").format({ lsp_fallback = true })
-end, { desc = "[l]sp [f]ormat" })
+map("n", "<leader>lf", "", {
+	callback = function()
+		require("conform").format({ lsp_fallback = true })
+	end,
+	desc = "[l]sp [f]ormat",
+})
 
 -- ===================== FLOAT CMD ==========================
 

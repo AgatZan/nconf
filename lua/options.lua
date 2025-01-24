@@ -6,8 +6,8 @@ local tabwidth = 4
 g.have_nerd_font = true
 o.smartindent = true
 o.breakindent = true
--------------------------------------- globals -----------------------------------------
-g.toggle_theme_icon = "   "
+
+o.guifont = "IoZanCode Nerd Font:h14"
 -------------------------------------- options ------------------------------------------
 o.laststatus = 3
 o.showmode = false
@@ -48,8 +48,9 @@ o.splitright = true
 o.timeoutlen = 400
 o.undofile = true
 
-o.foldmethod = "expr"
-o.foldexpr = "nvim_treesitter#foldexpr()"
+o.foldmethod = "indent"
+-- o.foldmethod = "expr"
+-- o.foldexpr = "nvim_treesitter#foldexpr()"
 o.foldenable = false
 -- interval for writing swap file to disk, also used by gitsigns
 o.updatetime = 250
@@ -70,7 +71,7 @@ o.spell = true
 o.spl = "en,ru"
 o.keymap = "russian-jcukenwin"
 o.langmap =
-	"ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
+	"ЙЦУКЕ;QWERT,йцуке;qwert,ФЫВАП;ASDFG,фывап;asdfg,ЯЧСМИ;ZXCVB,ячсми;zxcvb,нгшщзх;yuiop[,РОЛДЖЭ;HJKL:\\\",ролджэ;hjkl\\;',ТЬБЮ;NM<>,тьбю;nm./"
 o.iminsert = 0
 o.imsearch = 0
 

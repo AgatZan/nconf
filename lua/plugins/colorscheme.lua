@@ -1,3 +1,86 @@
+-- return {
+-- 	"p00f/alabaster.nvim",
+-- 	config = function()
+-- 		vim.cmd.colorscheme([[alabaster]])
+-- 	end,
+-- }
+-- local bg = "#f7f7f7"
+-- local fg = "#000000"
+-- local punct_fg = "#777777"
+-- local def_fg = "#325cc0"
+-- local const_fg = "#7a3e9d"
+-- local active = "#ffbc5d"
+-- local active_blue = "#007acc"
+-- local string_fg = "#448c27"
+-- local darker_fg = "#7d7d7d"
+-- local diffadd = "#284918"
+-- local diffdelete = "#B40600"
+-- local diffchange = "#ec8013"
+-- local statusline = "#c9c9c9"
+-- local comment = "#aa3731"
+-- local dim_comment = "#696969"
+
+-- local bg = "#0e1415"
+-- local fg = "#cecece"
+-- local punct_fg = "#708b8d"
+-- local def_fg = "#71ade7"
+-- local const_fg = "#cc8bc9"
+-- local active = "#cd974b"
+-- local string_fg = "#95cb82"
+-- local darker_fg = "#7d7d7d"
+-- local diffadd = "#6abf40"
+-- local diffdelete = "#d2322d"
+-- local diffchange = "#ec8013"
+-- local statusline = "#162022"
+-- local comment = "#dfdf8e"
+-- local dim_comment = "#696969"
+-- return {
+-- 	"RRethy/base16-nvim",
+-- 	config = function()
+-- 		require("base16-colorscheme").setup(
+-- 			-- {
+-- 			-- base00 = "#ffffff",
+-- 			-- base01 = "#ffffd7",
+-- 			-- base02 = "#ffffff",
+-- 			-- base03 = "#000000",
+-- 			-- base04 = "#000000",
+-- 			-- base05 = "#000000", -- text
+-- 			-- base06 = "#ffffff",
+-- 			-- base07 = "#ffffd7",
+-- 			-- base08 = "#181818",
+-- 			-- base09 = "#181818",
+-- 			-- base0A = "#151670",
+-- 			-- base0B = "#1d3901",
+-- 			-- base0C = "#195015",
+-- 			-- base0D = "#000000",
+-- 			-- base0E = "#151070",
+-- 			-- base0F = "#ff0303",
+-- 			-- }
+-- 		)
+-- 	end,
+-- }
+-- return {
+-- 	{
+-- 		"nvchad/ui",
+-- 		config = function()
+-- 			vim.g.base46_cache = vim.fn.stdpath("data") .. "/base46_cache/"
+-- 			require("nvchad")
+-- 		end,
+-- 	},
+--
+-- 	{
+-- 		"nvchad/base46",
+-- 		lazy = true,
+-- 		build = function()
+-- 			require("base46").load_all_highlights()
+-- 			dofile(vim.g.base46_cache .. "defaults")
+-- 			dofile(vim.g.base46_cache .. "statusline")
+-- 		end,
+-- 	},
+--
+-- 	"nvchad/volt", -- optional, needed for theme switcher
+-- 	-- or just use Telescope themes
+-- }
 return {
 	"EdenEast/nightfox.nvim",
 	config = function()
@@ -18,30 +101,6 @@ return {
 --	end,
 --}
 
---return {
---	"RRethy/base16-nvim",
---	config = function()
---		--		vim.cmd.colorscheme("base16-black-metal-venom")
---		require("base16-colorscheme").setup({
---			base00 = "#000000",
---			base01 = "#121212",
---			base02 = "#222222",
---			base03 = "#333333",
---			base04 = "#999999",
---			base05 = "#c1c1c1",
---			base06 = "#999999",
---			base07 = "#c1c1c1",
---			base08 = "#5f8787",
---			base09 = "#aaaaaa",
---			base0A = "#79241f",
---			base0B = "#f8f7f2",
---			base0C = "#aaaaaa",
---			base0D = "#888888",
---			base0E = "#999999",
---			base0F = "#444444",
---		})
---	end,
---}
 --return {
 --	"Abstract-IDE/Abstract-cs",
 --	lazy = false,

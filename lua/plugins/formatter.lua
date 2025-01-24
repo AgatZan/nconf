@@ -4,7 +4,6 @@ return {
 	cmd = { "ConformInfo" },
 	keys = {
 		{
-			-- Customize or remove this keymap to your liking
 			"<leader>lf",
 			function()
 				local m = vim.fn.mode()
@@ -31,48 +30,21 @@ return {
 		-- Define your formatters
 		formatters_by_ft = {
 			lua = { "stylua" },
-			html = { "prettier" },
-			python = { "isort", "black" },
-			javascript = { { "prettierd", "prettier" } },
 			c = { "clang-format" },
 		},
 		-- Set up format-on-save
-		format_on_save = { timeout_ms = 500, lsp_format = "fallback" },
+		-- format_on_save = { timeout_ms = 500, lsp_format = "fallback" },
 		-- Customize formatters
-		formatters = {
-			-- shfmt = {
-			-- 	prepend_args = { "-i", "2" },
-			-- },
-			prettier = {
-				prepend_args = { "--use-tabs", "--tab-width", "4" },
-				options = {
-					-- Use a specific prettier parser for a filetype
-					-- Otherwise, prettier will try to infer the parser from the file name
-					ft_parsers = {
-						--     javascript = "babel",
-						--     javascriptreact = "babel",
-						--     typescript = "typescript",
-						--     typescriptreact = "typescript",
-						--     vue = "vue",
-						--     css = "css",
-						--     scss = "scss",
-						--     less = "less",
-						html = "html",
-						--     json = "json",
-						--     jsonc = "json",
-						--     yaml = "yaml",
-						--     markdown = "markdown",
-						--     ["markdown.mdx"] = "mdx",
-						--     graphql = "graphql",
-						--     handlebars = "glimmer",
-					},
-					-- Use a specific prettier parser for a file extension
-					ext_parsers = {
-						-- qmd = "markdown",
-					},
-				},
-			},
-		},
+		-- formatters = {
+		-- 	prettier = {
+		-- 		prepend_args = { "--use-tabs", "--tab-width", "4" },
+		-- 		options = {
+		-- 			ft_parsers = {
+		-- 				html = "html",
+		-- 			},
+		-- 		},
+		-- 	},
+		-- },
 	},
 	init = function()
 		-- If you want the formatexpr, here is the place to set it
