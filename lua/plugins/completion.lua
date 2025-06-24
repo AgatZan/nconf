@@ -132,7 +132,7 @@ return {
 			window = {
 				completion = {
 					side_padding = 1,
-					winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:None",
+					winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
 					scrollbar = false,
 					border = border("CmpBorder"),
 				},

@@ -67,7 +67,7 @@ return {
 						["<C-j>"] = actions.select_default,
 						["<M-l>"] = actions.select_default,
 						["<M-j>"] = actions.move_selection_next,
-						["q"] = actions.close,
+						["<tab>"] = actions.close,
 					},
 				},
 				extensions = {
@@ -105,6 +105,7 @@ return {
 			{ callback = builtin.grep_string, noremap = true, desc = "Telescope: [f]ind [u]nder cursor in cwd" }
 		)
 		map("n", "<leader>fb", "", { callback = builtin.buffers, noremap = true, desc = "Telescope: [f]ind [b]uffers" })
+		map("n", "<leader>fr", "", { callback = builtin.lsp_references, noremap = true, desc = "Telescope: [f]ind [r]eferences" })
 		map(
 			"n",
 			"<leader>fd",

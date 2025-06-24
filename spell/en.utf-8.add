@@ -20,3 +20,6 @@ Shader
 off
 TIMESTAMP
 contravariance
+colorscheme
+autocmd
+Config

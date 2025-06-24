@@ -2,11 +2,9 @@ local map = vim.api.nvim_set_keymap
 _G.__local = {}
 _G = setmetatable(_G, {
 	__index = function(self, k)
-		vim.print(k, self)
 		return self.__local[k] or rawget(self, k)
 	end,
 })
-local f = 43
 
 local call = function()
 	local fun = vim.api.nvim_get_current_line()
@@ -43,3 +41,4 @@ local call_v = function()
 end
 map("v", "<cr>", "", { desc = "[e]xecute", noremap = true, callback = call_v })
 map("n", "<cr>", "", { desc = "[e]xecute", noremap = true, callback = call })
+map("n", "<leader>c", "<leader>wvgd", { desc = "[L]ayout"  })

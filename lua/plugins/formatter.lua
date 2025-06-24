@@ -7,7 +7,6 @@ return {
 			"<leader>lf",
 			function()
 				local m = vim.fn.mode()
-
 				local range = nil
 				if m == "v" or m == "V" or m == "\22" then -- <C-V>
 					vim.cmd([[execute "normal! \<ESC>"]])
